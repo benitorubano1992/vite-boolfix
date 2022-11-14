@@ -9,21 +9,44 @@ export default {
     props: {
         message: String,
         list: Array,
+
+
     },
     data() {
         return {
             store,
             currentItem: 0,
+            isTv: false
         }
     },
     methods: {
         getProperty(object) {
-            return Object.keys(object);
+            const listProp = Object.keys(object);
+            const result = {};
+            if (listProp.includes("original_title")) {
+                result.title = object.title;
+                result.original_title = object.original_title;
+
+                result.class = "tv"
+            }
+            else if (listProp.includes("name")) {
+                result.title = object.name;
+                result.original_title = object.original_name;
+
+                result.class = "serie"
+            }
+            result.original_language = object.original_language;
+            result.overview = object.overview;
+            result.poster_path = object.poster_path
+            result.average = object.vote_average;
+
+
+            return result;
+
         }
+
     }
-
 }
-
 
 </script>
 <template>
@@ -31,12 +54,15 @@ export default {
 
 
     <p>{{ message }}</p>
-    <div class="prova">
-        <p v-for="key in getProperty(list[currentItem])">{{ key }}</p>
+    <!--<div class="prova" v-if="list.length > 0">
+        <p v-for="(value, key) in getProperty(list[currentItem])">{{ key }}:{{ value }}</p>
     </div>
-    <div class="flex-container">
-        <AppCard v-for="film in list" :title="film.title" :Otitle="film.original_title" :Lingua="film.original_language"
-            :Overview="film.overview" />
+-->
+    <div class="flex-container" v-if="list.length > 0">
+        <AppCard v-for="film in list" :title="getProperty(film).title" :Otitle="getProperty(film).original_title"
+            :Lingua="getProperty(film).original_language" :Overview="getProperty(film).overview"
+            :classType="getProperty(film).class" :imageSrc="getProperty(film).poster_path"
+            :votes="getProperty(film).average" />
     </div>
 </template>
 <style scoped>

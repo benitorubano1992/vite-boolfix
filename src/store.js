@@ -6,6 +6,6 @@ export const store = reactive({
     loading: false,
     listFilm: [],
     listSeries: [],
-    inputKey: ""
-
+    inputKey: "",
+    imgPath: "https://image.tmdb.org/t/p/w342"
 })
