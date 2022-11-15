@@ -19,7 +19,7 @@ export default {
     */
   },
   methods: {
-    printUpdateApi: function () {
+    printUpdateApi: async function () {
       const newApiFilm = `${this.store.apiUrlMovie}?api_key=${this.store.key}&query=${this.store.inputKey}`
       const newApiTV = `${this.store.apiUrlSeries}?api_key=${this.store.key}&query=${this.store.inputKey}`;
       /*axios.get(newApi).then(resp => {
@@ -57,8 +57,11 @@ export default {
       });
       */
 
+
+
       this.getApi(newApiFilm).then(data => {
         this.store.loading = true;
+        console.log(data.results)
         if (data.results) {
           this.store.listFilm = data.results;
         }
@@ -74,6 +77,7 @@ export default {
       this.getApi(newApiTV).then(data => {
         if (data.results) {
           this.store.listSeries = data.results;
+          console.log({ listaSere: this.store.listSeries })
         }
         else
           this.store.listSeries = [];
@@ -103,7 +107,7 @@ export default {
   <main>
     <div class="loading" v-if="!store.loading">Ricerca il tuo primo Film</div>
 
-    <div class="container" v-if="(store.listFilm.length > 0 || store.listSeries.length > 0) && store.loading">
+    <div class="container" v-if="store.loading">
       <CardList message="Lista Film" :list="store.listFilm" />
       <CardList message="Lista Serie" :list="store.listSeries" />
 
