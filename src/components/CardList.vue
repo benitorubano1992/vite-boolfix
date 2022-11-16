@@ -39,8 +39,8 @@ export default {
             result.overview = object.overview;
             result.poster_path = object.poster_path
             result.average = object.vote_average;
-
-
+            result.id = object.id;
+            result.generi = object.genre_ids;
             return result;
 
         }
@@ -62,7 +62,8 @@ export default {
         <AppCard v-for="film in list" :title="getProperty(film).title" :Otitle="getProperty(film).original_title"
             :Lingua="getProperty(film).original_language" :Overview="getProperty(film).overview"
             :classType="getProperty(film).class" :imageSrc="getProperty(film).poster_path"
-            :votes="getProperty(film).average" />
+            :votes="getProperty(film).average" :cardId="getProperty(film).id" :type="getProperty(film).class"
+            :generi="getProperty(film).generi" />
     </div>
 </template>
 <style scoped>

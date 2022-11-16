@@ -7,5 +7,9 @@ export const store = reactive({
     listFilm: [],
     listSeries: [],
     inputKey: "",
-    imgPath: "https://image.tmdb.org/t/p/w342"
+    imgPath: "https://image.tmdb.org/t/p/w342",
+    listTvGen: [],
+    listSerieGen: [],
+    filterFilm: 0,
+    filterSerieTv: 0
 })
