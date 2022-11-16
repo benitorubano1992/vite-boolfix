@@ -33,23 +33,21 @@ export default {
             console.log(this.cardId)
             console.log(this.type);
 
-            if (this.listActor.length === 0) {
-                fetch(`${url}api_key=${this.store.key}`)
-                    .then(resp => resp.json())
-                    .then(data => {
-                        this.listActor = data.cast.filter(actor => actor.order < 5);
-                        console.log({ cast: this.listActor });
-                        this.hasCardHover = true;
-                        if (this.type !== "tv")
-                            console.log(this.listActor[0]);
-                    })
-                    .catch(error => {
-                        this.hasCardHover = true;
-                    })
 
-            }
-            else
-                this.hasCardHover = true;
+            fetch(`${url}api_key=${this.store.key}`)
+                .then(resp => resp.json())
+                .then(data => {
+                    this.listActor = data.cast.filter(actor => actor.order < 5);
+                    console.log({ cast: this.listActor });
+                    this.hasCardHover = true;
+                    if (this.type !== "tv")
+                        console.log(this.listActor[0]);
+                })
+                .catch(error => {
+                    this.hasCardHover = true;
+                })
+
+
 
         },
         resethasCardHover: function () {
